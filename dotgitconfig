@@ -1,0 +1,15 @@
+[user]
+	name = My Name
+	email = my.name@example.org
+[push]
+	default = tracking
+[color]
+	ui = auto
+[alias]
+	merged-by-who = log --ancestry-path --reverse --merges --format=\"%h %cD \\\"%cN <%cE>\\\"\"
+[git]
+	renames = true
+[core]
+	abbrev = 12
+[sendemail]
+	smtpsslcertpath = /etc/ssl/certs/ca-bundle.trust.crt

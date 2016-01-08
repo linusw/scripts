@@ -1,0 +1,53 @@
+# Example .bashrc
+
+# User specific aliases and functions
+
+# Check if a path is already in PATH, in that case
+# do nothing. Else add it before or after existing
+# PATH specs.
+pathmunge () {
+    if ! test -d $1 ; then
+        echo "$1 does not exist"
+        return
+    fi
+    if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+        # echo "$1 added to PATH $2"
+	if [ "$2" = "after" ] ; then
+	    PATH=$PATH:$1
+	else
+	    PATH=$1:$PATH
+	fi
+    fi
+}
+
+# Add my local scripts to PATH
+pathmunge $HOME/bin after
+# This is how I set up a cross compiler in my environment for example
+# pathmunge /var/linus/gcc-linaro-aarch64-linux-gnu-4.9-2014.09_linux/bin
+
+# Remove funnyfunction
+unset pathmunge
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# Turn off annoying beep
+case ${TERM} in
+    xterm)
+        xset b off
+        ;;
+    linux)
+	setterm -blength 0
+	;;
+    *)
+	# echo -e "\33[11;0]"
+        ;;
+esac
+
+export PATH
+export EDITOR=emacs
+export CVS_RSH=ssh
+# This disables history saving. History is privacy intrusive.
+unset HISTFILE
